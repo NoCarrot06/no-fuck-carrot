@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruCourt - Tennis Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 全局配色 */
+            --page-bg: #F4F4F4;
+            --primary-green: #FF2442;
+            --text-color: #333;
+            --light-bg: #F5F5F5;
+            --white: #FFFFFF;
+            --section-bg-light: #F5F5F0; /* 第四张图：特性区背景 */
+            --card-bg-simple: #C07A5F;   /* 第三张图：注册表单背景 */
+            --card-light-green: #A8B396; /* 第四张图：浅绿卡片 */
+            --card-dark-green:  #FF2442;  /* 第四张图：深绿卡片 */
+            --text-white: #FFFFFF;
+            --text-dark: #333333;
+            --btn-color:  #FF2442;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--page-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           第一部分：Hero 区域 (原第一张图)
+           ========================================= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--light-bg);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        div a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-cta {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: #0a4a3b;
+        }
+
+        /* Hero Section 样式 */
+        .hero-section {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 5% 4rem;
+        }
+
+        .hero-container {
+            background-color: var(--primary-green);
+            color: var(--white);
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-green);
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image-container {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* =========================================
+           第二部分：成果展示区 (原第二张图)
+           ========================================= */
+        .results-section {
+            padding: 80px 20px;
+            background-color: var(--page-bg);
+        }
+
+        .results-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .results-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .results-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .results-description {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .signup-button {
+            background-color: var(--btn-color);
+            color: var(--text-white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .balances-card {
+            background-color: #F0EDE5;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 300px;
+        }
+
+        .balances-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .balances-text {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .results-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .results-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* =========================================
+           第三部分：简洁注册表单 (原第三张图)
+           ========================================= */
+        .simple-signup-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            background-color: var(--page-bg);
+        }
+
+        .simple-signup-container {
+            background-color: var(--card-bg-simple);
+            color: var(--text-white);
+            width: 100%;
+            max-width: 800px;
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .simple-signup-container h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .simple-signup-container p.subtitle {
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            opacity: 0.85;
+        }
+
+        .simple-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .simple-input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .simple-btn {
+            background-color: var(--text-white);
+            color: var(--card-bg-simple);
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: fit-content;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .simple-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* =========================================
+           第四部分：特性展示区 (原第四张图 - 5卡片)
+           ========================================= */
+        .features-section {
+            background-color: var(--section-bg-light);
+            padding: 5rem 2rem;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .features-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .feature-card {
+            border-radius: 20px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 220px;
+        }
+
+        .feature-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-row-top {
+            flex: 0 0 calc(33.333% - 14px);
+        }
+
+        .card-schedule {
+            background-color: var(--card-light-green);
+            color: var(--text-dark);
+            padding: 2rem;
+        }
+        .card-schedule p { color: #555; }
+
+        .card-trainers-text {
+            background-color: var(--card-dark-green);
+            padding: 2rem;
+        }
+
+        .card-image-only {
+            padding: 0;
+            min-height: 250px;
+        }
+        
+        .card-image-only img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .card-image-only::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.1); 
+            z-index: 1;
+        }
+
+        .card-court-img {
+            flex: 0 0 calc(40% - 14px); 
+            min-height: 280px;
+        }
+
+        .card-courts-info {
+            flex: 0 0 calc(60% - 14px);
+            background-color: var(--card-dark-green);
+            padding: 2.5rem;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-courts-info h3 {
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        .big-number {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            align-self: flex-end;
+            margin-top: 1rem;
+        }
+
+        .card-courts-info:hover {
+            cursor: url('cursor-green-circle.png') 16 16, auto;
+        }
+
+        /* =========================================
+           响应式适配
+           ========================================= */
+        @media (max-width: 992px) {
+            .card-court-img, .card-courts-info {
+                flex: 0 0 calc(50% - 14px);
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero-image-container {
+                height: 250px;
+            }
+
+            .simple-signup-container, .signup-container {
+                padding: 40px 20px;
+            }
+            .results-container {
+                flex-direction: column;
+            }
+            .card-row-top, .card-court-img, .card-courts-info {
+                flex: 0 0 100%;
+                min-height: 200px;
+            }
+            .card-courts-info h3 {
+                font-size: 1.5rem;
+            }
+            .big-number {
+                font-size: 3.5rem;
+                align-self: flex-start;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =======================
+         第一部分
+         ======================= -->
+    <!-- 导航栏 -->
+    <header>
+        <a href="#" class="logo">Fifty-five days in Beijing</a>
+        <nav>
+            <ul>
+                <li><a href="#about">about</a></li>
+                <li><a href="#trainer">trainer</a></li>
+                <li><a href="#classes">classes</a></li>
+            </ul>
+        </nav>
+        <div>
+          <a href="#contacts">contacts</a>
+          <a href="#start" class="nav-cta">get started</a>
+        </div>
+    </header>
+
+    <!-- 主视觉区域 (Hero Section) -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <h1 class="hero-title">In the twenty-sixth year of Guangxu’s reign</h1>
+            <p class="hero-subtitle">Heaven aids the fist, the Boxers rise again“Support the Qing, exterminate the foreign foe,” For fifty-five days, in Peking, the flames did glow</p>
+            <a href="#start" class="hero-cta">get started</a>
+            
+            <div class="hero-image-container">
+                <!-- 使用 Unsplash 的免费图片作为占位符 -->
+                <img src="1.png" alt="一名网球运动员在球场上准备击球" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- =======================
+         第二部分
+         ======================= -->
+    <section class="results-section">
+        <div class="results-container">
+            <div class="results-text">
+                <h2 class="results-title">No rain from the sky, the earth cracks dry and sere</h2>
+                <p class="results-description">The demons’ eyes turn blue with ghostly fear. The gods look down, distressed by such a plight, And descend together to teach us how to fight.</p>
+                
+                <button class="signup-button">Sign up for The Boxers</button>
+                
+                <div class="balances-card">
+                    <div class="balances-number">350000+ balances</div>
+                    <div class="balances-text">We are no heretics, no White Lotus sect, But chant true spells with power and effect.</div>
+                </div>
+            </div>
+            
+            <div class="results-image">
+                <!-- 【替换】成果区教练背影图片 -->
+                <img src="2.png" alt="Coach Back View">
+            </div>
+        </div>
+    </section>
+
+    <!-- =======================
+         第三部分
+         ======================= -->
+    <section class="simple-signup-section">
+        <div class="simple-signup-container">
+            <h2>To answer the call of the Boxers</h2>
+            <p class="subtitle">Leave your details and we will contact you as soon as possible</p>
+
+            <form class="simple-form-group" onsubmit="event.preventDefault(); alert('Application submitted!');">
+                <input type="text" class="simple-input" placeholder="Name" required>
+                <input type="tel" class="simple-input" placeholder="Phone" required>
+                
+                <button type="submit" class="simple-btn">Submit your application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- =======================
+         第四部分
+         ======================= -->
+    <section class="features-section">
+        <div class="container">
+            <header class="section-header">
+                <h1 class="section-title">Why choose The Boxers?</h1>
+                <p class="section-subtitle">We raise the yellow paper, incense smoke ascends high, To summon immortals from caves across the sky.</p>
+            </header>
+
+            <div class="features-wrapper">
+                
+                <!-- === 第一行 (3个卡片) === -->
+                <article class="feature-card card-schedule card-row-top">
+                    <h3>With one heart and mind, we toil with all our might</h3>
+                    <p>Till grass and trees transform to soldiers for the fight.</p>
+                </article>
+
+                <article class="feature-card card-image-only card-row-top">
+                    <!-- 【替换】上排中间教练打球图片 -->
+                    <img src="3.png" alt="Tennis Coach">
+                </article>
+
+                <article class="feature-card card-trainers-text card-row-top">
+                    <h3>By the power of the celestials, vast and grand</h3>
+                    <p>We shall sweep the foreigners from this land.</p>
+                </article>
+
+                <!-- === 第二行 (2个卡片) === -->
+                <article class="feature-card card-image-only card-court-img">
+                    <!-- 【替换】下排左侧网球特写图片 -->
+                    <img src="5.png" alt="Tennis Balls">
+                </article>
+
+                <article class="feature-card card-courts-info">
+                    <div>
+                        <h3>Empress Dowager Cixi issues the command</h3>
+                        <p>The Boxers march forward to defend our land</p>
+                    </div>
+                    <div class="big-number">+ 1000</div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
