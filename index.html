@@ -7,9 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (免费图标库，用于社交图标) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ===== 所有样式保持不变（与之前完全一致） ===== */
     :root {
       --page-bg: #F4F4F4;
       --primary-green: #FF2442;
@@ -686,7 +687,6 @@
       background-color: #cc1a35;
     }
 
-    /* 新增联系方式区域样式 */
     .contact-links {
       margin-top: 1.5rem;
       padding-top: 1rem;
@@ -975,15 +975,13 @@
     });
   </script>
 
-  <!-- EmailJS 集成（使用您的配置） -->
+  <!-- EmailJS 集成（使用正确的 Service ID, Template ID, Public Key） -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // 初始化 EmailJS（使用您的 Public Key）
     (function() {
-      emailjs.init('xi5Aq6ZgM7Ze_ezF-');
+      emailjs.init('yuWjhfbwMH-Zmo2rm');  // 您的正确 Public Key
     })();
 
-    // 模态框交互（复用之前的逻辑，但确保在 EmailJS 初始化后绑定表单）
     const modal = document.getElementById('contactModal');
     const contactBtn = document.getElementById('contactUsBtn');
     const closeBtn = document.querySelector('.close-btn');
@@ -1007,7 +1005,6 @@
       }
     });
 
-    // 表单提交发送邮件
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
       contactForm.addEventListener('submit', async (e) => {
@@ -1025,8 +1022,8 @@
 
         try {
           const response = await emailjs.send(
-            'service_3zih9t7',    // 您的 Service ID
-            'template_c7so0y7',    // 您的 Template ID
+            'service_3zih9t7',    // 您的正确 Service ID
+            'template_c7so0y7',   // 您的正确 Template ID
             templateParams
           );
           alert('Message sent successfully!');
