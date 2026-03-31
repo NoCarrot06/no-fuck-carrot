@@ -7,21 +7,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (免费图标库，用于社交图标) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     :root {
-      /* 全局配色 */
       --page-bg: #F4F4F4;
       --primary-green: #FF2442;
       --text-color: #333;
       --light-bg: #F5F5F5;
       --white: #FFFFFF;
-      --section-bg-light: #F5F5F0; 
-      --card-bg-simple: #C07A5F;   
-      --card-light-green: #A8B396; 
-      --card-dark-green:  #FF2442;  
+      --section-bg-light: #F5F5F0;
+      --card-bg-simple: #C07A5F;
+      --card-light-green: #A8B396;
+      --card-dark-green: #FF2442;
       --text-white: #FFFFFF;
       --text-dark: #333333;
-      --btn-color:  #FF2442;
+      --btn-color: #FF2442;
     }
 
     * {
@@ -35,109 +36,100 @@
       background-color: var(--page-bg);
       color: var(--text-dark);
       line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden; /* 防止横向滚动 */
+      overflow-x: hidden;
     }
 
-    /* =========================================
-        第一部分：Hero 区域
-        ========================================= */
+    /* ===== 导航栏 - Grid 居中，字号调小 ===== */
     header {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      padding: 1.5rem 5%;
+      padding: 1.2rem 5%;
       background-color: var(--light-bg);
-      z-index: 100
+      z-index: 100;
     }
 
-    /* --- 新增：导航栏下落动画样式 --- */
-
-    /* 定义下落动画关键帧 */
-    @keyframes dropDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-50px); /* 从上方 50px 处开始 */
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0); /* 回到原位 */
-      }
-    }
-
-    /* 初始状态：隐藏并准备动画 (由 JS 控制添加类名来触发) */
-    .nav-animate-item {
-      opacity: 0; 
-      transform: translateY(-50px);
-      /* 默认不执行动画，等待 JS 添加 .animate-active 类 */
-    }
-
-    /* 激活状态：执行动画 */
-    .animate-active {
-      animation: dropDown 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* 带一点弹性的效果 */
-    }
-
-    /* 设置延迟，实现从左到右依次落下的效果 */
-    /* Logo */
-    header .logo.nav-animate-item { transition-delay: 0ms; } 
-    /* 导航链接 */
-    header nav ul li:nth-child(1) a.nav-animate-item { animation-delay: 0.1s; }
-    header nav ul li:nth-child(2) a.nav-animate-item { animation-delay: 0.2s; }
-    header nav ul li:nth-child(3) a.nav-animate-item { animation-delay: 0.3s; }
-    /* 右侧 Contacts */
-    header div > a:not(.nav-cta).nav-animate-item { animation-delay: 0.4s; }
-    /* 右侧 Get Started 按钮 */
-    header div > a.nav-cta.nav-animate-item { animation-delay: 0.5s; }
-
-    /* 注意：为了不影响首次加载的自然显示，我们不在全局加 animation，
-      而是通过 JS 动态添加 .animate-active 类来触发 */
-
-    .logo {
-      font-size: 1.8rem;
+    header .logo {
+      justify-self: start;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #000;
       text-decoration: none;
     }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
+    header .nav-center {
+      justify-self: center;
     }
 
-    nav a, div a {
+    header .nav-center ul {
+      display: flex;
+      list-style: none;
+      gap: 1.8rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    header .nav-center ul li a {
+      font-size: 0.9rem;
+      font-weight: 600;
       text-decoration: none;
       color: var(--text-color);
-      font-weight: 600;
       transition: color 0.3s ease;
     }
 
-    nav a:hover, div a:hover {
+    header .nav-center ul li a:hover {
       color: var(--primary-green);
+    }
+
+    header > div {
+      justify-self: end;
     }
 
     .nav-cta {
       background-color: var(--primary-green);
       color: var(--white);
-      padding: 0.7rem 1.5rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.85rem;
       transition: background-color 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
     }
 
     .nav-cta:hover {
       background-color: #0a4a3b;
     }
 
+    /* 导航栏下落动画 */
+    @keyframes dropDown {
+      0% { opacity: 0; transform: translateY(-50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-animate-item {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+
+    .animate-active {
+      animation: dropDown 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    header .logo.nav-animate-item { animation-delay: 0s; }
+    header .nav-center ul li:nth-child(1) a.nav-animate-item { animation-delay: 0.1s; }
+    header .nav-center ul li:nth-child(2) a.nav-animate-item { animation-delay: 0.2s; }
+    header div > .nav-cta.nav-animate-item { animation-delay: 0.3s; }
+
+    /* ===== Hero 区域 ===== */
     .hero-section {
       display: flex;
       justify-content: center;
       padding: 2rem 5% 4rem;
-      position: relative; /* 必须添加，以便 transform 生效 */
-      z-index: 10;        /* 确保它在背景之上 */
-      will-change: transform; /* 性能优化，告诉浏览器即将发生变换 */
+      position: relative;
+      z-index: 10;
     }
 
     .hero-container {
@@ -145,14 +137,12 @@
       color: var(--white);
       width: 100%;
       max-width: 1200px;
-      height: 80vh; /* 100% of Viewport Height (视口高度) */
-      min-height: 600px; /* 防止在手机竖屏时太矮，设置一个保底高度 */
+      min-height: 600px;
       border-radius: 30px;
       padding: 4rem 2rem;
       text-align: center;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      will-change: transform, opacity; 
-      transition: opacity 0.1s linear; /* 仅用于透明度过渡 */
+      overflow: hidden;
     }
 
     .hero-title {
@@ -188,21 +178,17 @@
 
     .hero-image-container {
       width: 100%;
-      height: 350px;
       overflow: hidden;
       border-radius: 20px;
     }
 
     .hero-image {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      height: auto;
+      display: block;
     }
 
-    /* =========================================
-        第二部分：成果展示区
-        ========================================= */
+    /* ===== 成果展示区 ===== */
     .results-section {
       padding: 80px 20px;
       background-color: var(--page-bg);
@@ -286,67 +272,38 @@
       height: auto;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      
-      /* 【新增】初始位置：隐藏在屏幕右侧外面 */
-      transform: translateX(100vw); 
+      transform: translateX(100%);
       opacity: 0;
-      /* 【新增】平滑过渡 */
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                  opacity 0.8s ease-out;
+      transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.5s ease-out;
     }
 
-    /* 【新增】激活状态：回到正常位置并显示 */
     .results-image img.animate-in {
       transform: translateX(0);
       opacity: 1;
     }
 
-    /* 新增：鼠标悬停时的状态 */
     .results-image:hover img {
-      transform: scale(1.05); /* 放大到 1.05 倍 (即 105%) */
+      transform: translateX(0) scale(1.05);
     }
 
-    /* --- 新增：文字下落动画样式 --- */
-
-    /* 1. 定义下落动画的关键帧 */
     @keyframes textDropIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-60px); /* 从上方 60px 处开始 */
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0); /* 回到正常位置 */
-      }
+      0% { opacity: 0; transform: translateY(-60px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* 2. 设置动画元素的初始状态 */
     .animate-text-line {
-      opacity: 0; /* 初始不可见 */
-      transform: translateY(-60px); /* 初始在上方 */
-      /* 注意：这里不直接加 animation，而是通过 JS 添加类名来触发 */
+      opacity: 0;
+      transform: translateY(-60px);
     }
 
-    /* 3. 激活状态：执行动画 */
     .animate-text-line.active {
       animation: textDropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-      /* cubic-bezier 提供了一个带轻微弹性的效果，让下落更自然 */
-      /* forwards 确保动画结束后保持在最终状态 */
     }
 
-    /* 4. 设置延迟，实现依次落下的效果 */
-    /* 第一个元素（标题）延迟 0.1s */
-    .results-text .animate-text-line:nth-child(1).active {
-      animation-delay: 0.1s;
-    }
-    /* 第二个元素（副标题）延迟 0.3s */
-    .results-text .animate-text-line:nth-child(2).active {
-      animation-delay: 0.3s;
-    }
+    .results-text .animate-text-line:nth-child(1).active { animation-delay: 0.1s; }
+    .results-text .animate-text-line:nth-child(2).active { animation-delay: 0.3s; }
 
-    /* =========================================
-        第三部分：简洁注册表单
-        ========================================= */
+    /* ===== 简洁注册表单 ===== */
     .simple-signup-section {
       display: flex;
       justify-content: center;
@@ -425,40 +382,19 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    /* --- 新增：表单元素动画样式 --- */
-
-    /* 1. 确保表单容器有相对定位，作为内部绝对定位元素的参考 */
-    .form-container {
-      position: relative;
-    }
-
-        /* =========================================
-       【替换】第三部分：表单逐行落下动画样式
-       ========================================= */
-    
-    /* 1. 定义下落动画关键帧 */
     @keyframes formDropIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-40px); /* 从上方 40px 处开始 */
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0); /* 回到原位 */
-      }
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* 2. 设置所有需要动画的元素的初始状态 */
     .simple-signup-container h2,
     .simple-signup-container p.subtitle,
     .simple-signup-container .simple-input,
     .simple-signup-container .simple-btn {
-      opacity: 0; /* 初始隐藏 */
-      transform: translateY(-40px); /* 初始上移 */
-      /* 暂时不执行动画，等待 JS 添加类名 */
+      opacity: 0;
+      transform: translateY(-40px);
     }
 
-    /* 3. 激活状态：执行动画 */
     .simple-signup-container.animate-form h2,
     .simple-signup-container.animate-form p.subtitle,
     .simple-signup-container.animate-form .simple-input,
@@ -466,31 +402,13 @@
       animation: formDropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
-    /* 4. 设置延迟，实现从上到下的顺序 */
-    /* 标题 */
-    .simple-signup-container.animate-form h2 {
-      animation-delay: 0.1s;
-    }
-    /* 副标题 */
-    .simple-signup-container.animate-form p.subtitle {
-      animation-delay: 0.25s;
-    }
-    /* 第一个输入框 (Name) */
-    .simple-signup-container.animate-form .simple-input:nth-of-type(1) {
-      animation-delay: 0.4s;
-    }
-    /* 第二个输入框 (Phone) */
-    .simple-signup-container.animate-form .simple-input:nth-of-type(2) {
-      animation-delay: 0.55s;
-    }
-    /* 按钮 */
-    .simple-signup-container.animate-form .simple-btn {
-      animation-delay: 0.7s;
-    }
+    .simple-signup-container.animate-form h2 { animation-delay: 0.1s; }
+    .simple-signup-container.animate-form p.subtitle { animation-delay: 0.25s; }
+    .simple-signup-container.animate-form .simple-input:nth-of-type(1) { animation-delay: 0.4s; }
+    .simple-signup-container.animate-form .simple-input:nth-of-type(2) { animation-delay: 0.55s; }
+    .simple-signup-container.animate-form .simple-btn { animation-delay: 0.7s; }
 
-    /* =========================================
-        第四部分：特性展示区 (含光泽特效)
-        ========================================= */
+    /* ===== 特性展示区 ===== */
     .features-section {
       background-color: var(--section-bg-light);
       padding: 5rem 2rem;
@@ -528,121 +446,86 @@
       width: 100%;
     }
 
-    /* --- 核心修改开始：卡片基础与光泽特效 --- */
     .feature-card {
       border-radius: 20px;
       color: var(--white);
       position: relative;
-      overflow: hidden; /* 关键：确保光泽不超出圆角 */
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                  box-shadow 0.4s ease;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
       transform-style: preserve-3d;
-      will-change: transform; /* 性能优化 */
+      will-change: transform;
       cursor: default;
       display: flex;
       flex-direction: column;
       justify-content: center;
       min-height: 220px;
-      z-index: 1; /* 建立层叠上下文 */
+      z-index: 1;
     }
 
-    /* 3D 悬停效果 */
     section.features-section .feature-card:hover {
-      /* 使用 !important 强制覆盖任何残留的动画状态或内联样式 */
       transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.02) !important;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25) !important;
       z-index: 10;
-      cursor: pointer; /* 提示用户可交互 */
+      cursor: pointer;
     }
 
-    /* 光泽伪元素 */
     .feature-card::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%; /* 初始位置在左侧外部 */
+      left: -100%;
       width: 50%;
       height: 100%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.4) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: skewX(-25deg); /* 倾斜光带 */
-      transition: none; /* 默认无过渡，由 hover 控制 */
-      z-index: 2; /* 确保在背景和图片之上，但在文字之下(如果需要文字在最上，可调整文字 z-index) */
-      pointer-events: none; /* 防止阻挡点击 */
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-25deg);
+      transition: none;
+      z-index: 2;
+      pointer-events: none;
     }
 
-    /* 悬停时光泽扫过 */
     .feature-card:hover::before {
-      left: 150%; /* 移动到右侧外部 */
-      transition: left 0.7s ease-in-out; /* 扫过动画时间 */
+      left: 150%;
+      transition: left 0.7s ease-in-out;
     }
-    
-    /* 确保文字在光泽之上 */
+
     .feature-card h3, .feature-card p, .feature-card .big-number {
       position: relative;
       z-index: 3;
     }
-    /* --- 核心修改结束 --- */
 
-    /* =========================================
-    【新增】第四部分：特性卡片入场动画
-    ========================================= */
-
-     /* =========================================
-       【优化版】第四部分：特性卡片入场动画
-       ========================================= */
-
-    /* 定义通用飞入动画关键帧 - 仅处理位移 (translate) */
     @keyframes flyInFromLeft {
       0% { opacity: 0; transform: translateX(-150px); }
       100% { opacity: 1; transform: translateX(0); }
     }
-
     @keyframes flyInFromRight {
       0% { opacity: 0; transform: translateX(150px); }
       100% { opacity: 1; transform: translateX(0); }
     }
-
     @keyframes flyInFromTopLeft {
       0% { opacity: 0; transform: translate(-100px, -80px); }
-      100% { opacity: 1; transform: translate(0, 0); }
+      100% { opacity: 1; transform: translate(0,0); }
     }
-
     @keyframes flyInFromTop {
       0% { opacity: 0; transform: translateY(-100px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes flyInFromTopRight {
       0% { opacity: 0; transform: translate(100px, -80px); }
-      100% { opacity: 1; transform: translate(0, 0); }
+      100% { opacity: 1; transform: translate(0,0); }
     }
 
-    /* 初始状态 */
     .section-header h1.section-title,
     .section-header p.section-subtitle,
     .feature-card {
       opacity: 0;
-      /* 确保初始没有 transform 干扰 */
     }
 
-    /* --- 激活动画类 --- */
-    
-    /* 标题：左飞入 */
     .features-section.animate-cards .section-header h1.section-title {
       animation: flyInFromLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
-
-    /* 副标题：右飞入 */
     .features-section.animate-cards .section-header p.section-subtitle {
       animation: flyInFromRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
-
-    /* 第一排卡片 */
     .features-section.animate-cards .card-row-top:nth-child(1) {
       animation: flyInFromTopLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       animation-delay: 0.2s;
@@ -655,8 +538,6 @@
       animation: flyInFromTopRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       animation-delay: 0.4s;
     }
-
-    /* 第二排卡片 */
     .features-section.animate-cards .card-court-img {
       animation: flyInFromLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       animation-delay: 0.5s;
@@ -666,128 +547,41 @@
       animation-delay: 0.6s;
     }
 
-    .feature-card h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
+    .feature-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.95rem; opacity: 0.9; line-height: 1.5; }
 
-    .feature-card p {
-      font-size: 0.95rem;
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-
-    .card-row-top {
-      flex: 0 0 calc(33.333% - 14px);
-    }
-
-    .card-schedule {
-      background-color: var(--card-light-green);
-      color: var(--text-dark);
-      padding: 2rem;
-    }
+    .card-row-top { flex: 0 0 calc(33.333% - 14px); }
+    .card-schedule { background-color: var(--card-light-green); color: var(--text-dark); padding: 2rem; }
     .card-schedule p { color: #555; }
+    .card-trainers-text { background-color: var(--card-dark-green); padding: 2rem; }
+    .card-image-only { padding: 0; min-height: 250px; background-color: #ddd; }
+    .card-image-only img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; }
+    .card-image-only::after { content: ''; position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.1); z-index: 2; }
+    .card-court-img { flex: 0 0 calc(40% - 14px); min-height: 280px; }
+    .card-courts-info { flex: 0 0 calc(60% - 14px); background-color: var(--card-dark-green); padding: 2.5rem; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; }
+    .card-courts-info h3 { font-size: 2rem; line-height: 1.2; }
+    .big-number { font-size: 5rem; font-weight: 700; line-height: 1; align-self: flex-end; margin-top: 1rem; }
 
-    .card-trainers-text {
-      background-color: var(--card-dark-green);
-      padding: 2rem;
-    }
-
-    .card-image-only {
-      padding: 0;
-      min-height: 250px;
-      background-color: #ddd; /* 防止图片加载前透明 */
-    }
-    
-    .card-image-only img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1; /* 图片在底层 */
-    }
-    
-    /* 图片上的遮罩，让文字更清晰，同时允许光泽透过 */
-    .card-image-only::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.1); 
-      z-index: 2;
-    }
-
-    .card-court-img {
-      flex: 0 0 calc(40% - 14px); 
-      min-height: 280px;
-    }
-
-    .card-courts-info {
-      flex: 0 0 calc(60% - 14px);
-      background-color: var(--card-dark-green);
-      padding: 2.5rem;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card-courts-info h3 {
-      font-size: 2rem;
-      line-height: 1.2;
-    }
-
-    .big-number {
-      font-size: 5rem;
-      font-weight: 700;
-      line-height: 1;
-      align-self: flex-end;
-      margin-top: 1rem;
-    }
-
-    .card-courts-info:hover {
-      cursor: url('cursor-green-circle.png') 16 16, auto;
-    }
-
-    /* =========================================
-        响应式适配
-        ========================================= */
-    @media (max-width: 992px) {
-        .card-court-img, .card-courts-info {
-            flex: 0 0 calc(50% - 14px);
-        }
-        .hero-title {
-            font-size: 2.5rem;
-        }
-    }
-
+    /* 响应式适配 */
     @media (max-width: 768px) {
       header {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      nav ul {
+        grid-template-columns: 1fr;
         gap: 1rem;
-        font-size: 0.9rem;
+        text-align: center;
       }
-
+      header .logo,
+      header .nav-center,
+      header > div {
+        justify-self: center;
+      }
       .hero-title {
         font-size: 2.5rem;
       }
-
       .hero-container {
         padding: 2rem 1.5rem;
       }
-      
-      .hero-image-container {
-        height: 250px;
-      }
-
       .simple-signup-container, .signup-container {
-          padding: 40px 20px;
+        padding: 40px 20px;
       }
       .results-container {
         flex-direction: column;
@@ -807,36 +601,168 @@
         font-size: 2rem;
       }
     }
+
+    /* ===== 模态框样式 ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 0.3s ease;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #FF2442;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .modal-form input,
+    .modal-form textarea {
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 40px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .modal-form input:focus,
+    .modal-form textarea:focus {
+      border-color: #FF2442;
+    }
+
+    .modal-form textarea {
+      border-radius: 20px;
+      resize: vertical;
+    }
+
+    .modal-submit {
+      background-color: #FF2442;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .modal-submit:hover {
+      background-color: #cc1a35;
+    }
+
+    /* 新增联系方式区域样式 */
+    .contact-links {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+
+    .contact-links p {
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .contact-links a {
+      color: #FF2442;
+      text-decoration: none;
+      margin: 0 0.8rem;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .contact-links a i {
+      margin-right: 0.4rem;
+    }
+
+    .contact-links a:hover {
+      color: #0a4a3b;
+      text-decoration: underline;
+    }
+
+    .contact-email {
+      display: inline-block;
+      margin: 0 0.8rem;
+      font-size: 0.9rem;
+      color: #FF2442;
+      text-decoration: none;
+    }
+
+    .contact-email i {
+      margin-right: 0.4rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- 导航栏 -->
   <header id="main-header">
-    <!-- 添加类名 -->
     <a href="#" class="logo nav-animate-item">Fifty-five days in Beijing</a>
-    <nav>
+    <nav class="nav-center">
       <ul>
-        <!-- 给每个 li 里面的 a 添加类名 -->
-        <li><a href="#about" class="nav-animate-item">about</a></li>
-        <li><a href="#trainer" class="nav-animate-item">trainer</a></li>
-        <li><a href="#classes" class="nav-animate-item">classes</a></li>
+        <li><a href="#service" class="nav-animate-item">Our Service</a></li>
+        <li><a href="#team" class="nav-animate-item">Our Team</a></li>
       </ul>
     </nav>
     <div>
-      <!-- 给右侧链接添加类名 -->
-      <a href="#contacts" class="nav-animate-item">contacts</a>
-      <a href="#start" class="nav-cta nav-animate-item">get started</a>
+      <button class="nav-cta nav-animate-item" id="contactUsBtn">Contact Us</button>
     </div>
   </header>
 
-  <!-- 主视觉区域 -->
+  <!-- Hero 区域 -->
   <section class="hero-section">
     <div class="hero-container">
       <h1 class="hero-title">In the twenty-sixth year of Guangxu’s reign</h1>
       <p class="hero-subtitle">Heaven aids the fist, the Boxers rise again“Support the Qing, exterminate the foreign foe,” For fifty-five days, in Peking, the flames did glow</p>
       <a href="#start" class="hero-cta">get started</a>
-      
       <div class="hero-image-container">
         <img src="1.png" alt="一名网球运动员在球场上准备击球" class="hero-image">
       </div>
@@ -847,71 +773,55 @@
   <section class="results-section">
     <div class="results-container">
       <div class="results-text">
-        <div class="animate-text-line">
-          <h2 class="results-title">No rain from the sky, the earth cracks dry and sere</h2>
-        </div>
-        <div class="animate-text-line">
-          <p class="results-description">The demons' eyes turn blue with ghostly fear. The gods look down, distressed by such a plight, And descend together to teach us how to fight.</p>
-        </div>
-          
+        <div class="animate-text-line"><h2 class="results-title">No rain from the sky, the earth cracks dry and sere</h2></div>
+        <div class="animate-text-line"><p class="results-description">The demons' eyes turn blue with ghostly fear. The gods look down, distressed by such a plight, And descend together to teach us how to fight.</p></div>
         <button class="signup-button">Sign up for The Boxers</button>
-          
         <div class="balances-card">
           <div class="balances-number" id="counter">0 balances</div>
           <div class="balances-text">We are no heretics, no White Lotus sect, But chant true spells with power and effect.</div>
         </div>
       </div>
-        
       <div class="results-image">
         <img src="2.png" alt="Coach Back View">
       </div>
     </div>
   </section>
 
-    <!-- 简洁注册表单 -->
+  <!-- 简洁注册表单 -->
   <section class="simple-signup-section">
     <div class="simple-signup-container">
       <h2>To answer the call of the Boxers</h2>
       <p class="subtitle">Leave your details and we will contact you as soon as possible</p>
-
       <form class="simple-form-group" onsubmit="event.preventDefault(); alert('Application submitted!');">
         <input type="text" class="simple-input" placeholder="Name" required>
         <input type="tel" class="simple-input" placeholder="Phone" required>
-        
         <button type="submit" class="simple-btn">Submit your application</button>
       </form>
     </div>
   </section>
 
-  <!-- 特性展示区 (5个卡片) -->
+  <!-- 特性展示区 -->
   <section class="features-section">
     <div class="container">
       <header class="section-header">
         <h1 class="section-title">Why choose The Boxers?</h1>
         <p class="section-subtitle">We raise the yellow paper, incense smoke ascends high, To summon immortals from caves across the sky.</p>
       </header>
-
       <div class="features-wrapper">
-        <!-- 第一行 -->
         <article class="feature-card card-schedule card-row-top">
           <h3>With one heart and mind, we toil with all our might</h3>
           <p>Till grass and trees transform to soldiers for the fight.</p>
         </article>
-
         <article class="feature-card card-image-only card-row-top">
           <img src="3.png" alt="Tennis Coach">
         </article>
-
         <article class="feature-card card-trainers-text card-row-top">
           <h3>By the power of the celestials, vast and grand</h3>
           <p>We shall sweep the foreigners from this land.</p>
         </article>
-
-        <!-- 第二行 -->
         <article class="feature-card card-image-only card-court-img">
           <img src="5.png" alt="Tennis Balls">
         </article>
-
         <article class="feature-card card-courts-info">
           <div>
             <h3>Empress Dowager Cixi issues the command</h3>
@@ -919,355 +829,215 @@
           </div>
           <div class="big-number">+ 1000</div>
         </article>
-
       </div>
     </div>
   </section>
 
+  <!-- 模态框 HTML（已为输入框添加 id） -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Contact Us</h2>
+      <p>Fill out the form below or reach us directly.</p>
+      <form id="contactForm" class="modal-form">
+        <input type="text" id="contactName" placeholder="Your Name" required>
+        <input type="email" id="contactEmail" placeholder="Email Address" required>
+        <textarea id="contactMessage" rows="3" placeholder="Message"></textarea>
+        <button type="submit" class="modal-submit">Send Message</button>
+      </form>
+      <div class="contact-links">
+        <p>Or connect with us:</p>
+        <a href="mailto:info@trucourt.com" class="contact-email"><i class="fas fa-envelope"></i> info@trucourt.com</a>
+        <a href="https://www.instagram.com/dachuan_media/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://www.linkedin.com/company/dachuan-innovation/?viewAsMember=true" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 原有的动画脚本（保持不变） -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const header = document.getElementById('main-header');
       const animatedItems = document.querySelectorAll('.nav-animate-item');
-      let hasLoadedOnce = false; // 标记页面是否已经完成过初次加载
-      let isAnimating = false;   // 防止重复触发
-
-      // 1. 初始化：页面刚加载时，移除初始的隐藏状态，让内容自然显示，不播放动画
-      // 我们给 body 加一个类，或者直接在 JS 里处理样式
+      let hasLoadedOnce = false, isAnimating = false;
       setTimeout(() => {
         animatedItems.forEach(item => {
-            // 强制重绘，确保初始状态被应用然后立即恢复正常，不触发动画
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-            item.classList.remove('animate-active'); // 确保没有动画类
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+          item.classList.remove('animate-active');
         });
-        hasLoadedOnce = true; // 标记初次加载完成
-      }, 100); // 稍微延迟一点，确保 DOM 渲染完毕
-
-      // 2. 设置观察器
+        hasLoadedOnce = true;
+      }, 100);
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // 当导航栏进入视野，且已经过了初次加载，且当前没有在动画中
           if (entry.isIntersecting && hasLoadedOnce && !isAnimating) {
-              
             isAnimating = true;
-
-            // 重置所有元素状态到“上方隐藏”
             animatedItems.forEach(item => {
               item.style.opacity = '0';
               item.style.transform = 'translateY(-50px)';
               item.classList.remove('animate-active');
-              
-              // 强制浏览器重排 (Reflow)，确保上面的重置生效，否则动画不会重播
-              void item.offsetWidth; 
-
-              // 重新添加动画类，触发动画
+              void item.offsetWidth;
               item.classList.add('animate-active');
-              
-              // 清除内联样式，让 CSS 类完全控制
-              item.style.opacity = ''; 
+              item.style.opacity = '';
               item.style.transform = '';
             });
-
-            // 动画持续时间约 0.6s + 最大延迟 0.5s ≈ 1.1s，这里设 1.5s 后允许再次触发
-            setTimeout(() => {
-              isAnimating = false;
-            }, 1500);
+            setTimeout(() => { isAnimating = false; }, 1500);
           }
-          
-          // 可选：如果希望每次离开视野都重置状态，可以在 !entry.isIntersecting 时处理
-          // 但通常不需要，只要保证进入时触发一次即可
         });
-      }, { 
-        threshold: 0.1, // 当导航栏出现 10% 时触发
-        rootMargin: "-50px 0px 0px 0px" // 稍微提前一点触发
-      });
-
-      if (header) {
-        observer.observe(header);
-      }
+      }, { threshold: 0.1, rootMargin: "-50px 0px 0px 0px" });
+      if (header) observer.observe(header);
     });
   </script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const heroSection = document.querySelector('.hero-section');
-      const heroContainer = document.querySelector('.hero-container');
-      
-      if (!heroSection || !heroContainer) return;
-
-      let lastScrollY = window.scrollY;
-      let ticking = false;
-
-      // --- 配置区域 ---
-      // 阈值：用户需要滚过多少屏幕高度，才会触发“强制上滑”？
-      // 0.3 表示滚过 30% 的屏幕高度后，开始强制滑动。
-      // 调大这个值（如 0.5），第一屏“粘”在屏幕上的时间就越长。
-      const THRESHOLD_PERCENT = 0.35; 
-      
-      // 滑动强度：触发后，滑动的速度有多快？
-      // 2.5 表示触发后，滚动 1px，页面滑动 2.5px（产生加速甩出的效果）
-      const SLIDE_INTENSITY = 2.5; 
-
-      function calculateTransform(scrollY) {
-        const windowHeight = window.innerHeight;
-        
-        // 计算当前滚动进度 (0 ~ 1)
-        let progress = scrollY / windowHeight;
-        
-        // 核心逻辑：分段处理
-        if (progress <= THRESHOLD_PERCENT) {
-          // --- 阶段 1: 未达到阈值 (粘滞阶段) ---
-          // 在这个阶段，我们让 translateY 非常小，几乎感觉不到在动
-          // 使用一个极小的系数，或者完全固定为 0
-          
-          // 方案 A: 完全固定不动 (直到阈值)
-          // const translateY = 0; 
-          
-          // 方案 B: 极慢速移动 (更有质感，推荐)
-          // 使用平方曲线，让开始几乎不动
-          const stickiness = Math.pow(progress / THRESHOLD_PERCENT, 3); // 立方曲线，极慢
-          const translateY = -stickiness * windowHeight * 0.1; // 最多只动 10% 的高度
-
-          const opacity = 1 - (stickiness * 0.2); // 轻微变淡
-          const contentTranslateY = stickiness * 20;
-
-          return { translateY, opacity, contentTranslateY };
-
-        } else {
-          // --- 阶段 2: 超过阈值 (强制上滑阶段) ---
-          // 计算超出阈值的部分
-          const excessProgress = progress - THRESHOLD_PERCENT;
-          
-          // 基础位移：阈值那一刻的位移量
-          const baseTranslateY = -windowHeight * 0.1; // 对应阶段1的最大位移
-          
-          // 强制滑动位移：超出部分 * 高强度系数
-          // 这会让页面瞬间加速飞出去
-          const forceSlide = -excessProgress * windowHeight * SLIDE_INTENSITY;
-          
-          const totalTranslateY = baseTranslateY + forceSlide;
-          
-          // 透明度快速降为 0
-          const opacity = Math.max(0, 1 - (excessProgress * 3)); 
-          const contentTranslateY = 50 + (excessProgress * 100); // 内容快速下移
-
-          return { 
-            translateY: totalTranslateY, 
-            opacity, 
-            contentTranslateY 
-          };
-        }
-      }
-
-      function update() {
-        const currentScrollY = window.scrollY;
-        
-        // 优化：只有当滚动位置变化时才重新计算
-        if (currentScrollY !== lastScrollY) {
-          const result = calculateTransform(currentScrollY);
-
-          // 应用位移
-          heroSection.style.transform = `translateY(${result.translateY}px)`;
-          
-          // 应用内部效果
-          heroContainer.style.opacity = result.opacity;
-          heroContainer.style.transform = `translateY(${result.contentTranslateY}px)`;
-          
-          lastScrollY = currentScrollY;
-        }
-        
-        ticking = false;
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      }
-
-      // 监听滚动
-      window.addEventListener('scroll', onScroll, { passive: true });
-      
-      // 初始化
-      update();
-    });
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. 获取要观察的区域和内部的动画元素
       const resultsSection = document.querySelector('.results-section');
       const textLines = document.querySelectorAll('.results-text .animate-text-line');
-      const resultImage = document.querySelector('.results-image img'); // 【新增】获取图片
-
-      // 如果元素不存在，则退出，防止报错
+      const resultImage = document.querySelector('.results-image img');
       if (!resultsSection) return;
-
-      // 2. 创建 Intersection Observer (交叉观察器)
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // 当 .results-section 进入视口时
           if (entry.isIntersecting) {
-            
-            // 3. 给每个文字行依次添加 'active' 类，触发动画
-            textLines.forEach((line, index) => {
-              setTimeout(() => {
-                line.classList.add('active');
-              }, index * 150);
-            });
-
-            // 【新增】4. 触发图片从右侧滑入
-            if (resultImage) {
-              setTimeout(() => {
-                resultImage.classList.add('animate-in');
-              }, 300); // 比文字稍晚一点开始，更有层次感
-            }
-
-            // 5. 动画只播放一次，播放完成后停止观察，提升性能
+            textLines.forEach((line, idx) => setTimeout(() => line.classList.add('active'), idx * 150));
+            if (resultImage) setTimeout(() => resultImage.classList.add('animate-in'), 300);
             observer.unobserve(resultsSection);
           }
         });
-      }, { 
-        threshold: 0.1,
-        rootMargin: "0px 0px -100px 0px"
-      });
-
-      // 6. 开始观察
+      }, { threshold: 0.1, rootMargin: "0px 0px -100px 0px" });
       observer.observe(resultsSection);
     });
   </script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const counterElement = document.getElementById('counter');
-      const targetNumber = 350000;
-      const suffix = " balances";
-      let hasAnimated = false; // 确保只运行一次
-
-      // 创建观察器
+      const targetNumber = 350000, suffix = " balances";
+      let hasAnimated = false;
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // 当元素进入视口且尚未动画过
           if (entry.isIntersecting && !hasAnimated) {
             hasAnimated = true;
-            animateCounter(counterElement, targetNumber, suffix);
+            let current = 0;
+            const increment = targetNumber / 100;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= targetNumber) { current = targetNumber; clearInterval(timer); }
+              counterElement.textContent = Math.floor(current).toLocaleString() + "+" + suffix;
+            }, 20);
           }
         });
-      }, { threshold: 0.5 }); // 当元素显示 50% 时触发
-
-      // 开始观察
-      if (counterElement) {
-        observer.observe(counterElement.closest('.results-section'));
-      }
-
-      // 动画函数
-      function animateCounter(element, target, suffix) {
-        let current = 0;
-        // 根据目标数字大小调整速度，数字越大每次增加越多
-        const increment = target / 100; 
-        const duration = 2000; // 总时长 2 秒
-        const stepTime = duration / 100; 
-
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            current = target;
-            clearInterval(timer);
-          }
-          // 格式化数字并更新文本 (去掉小数点，加逗号)
-          element.textContent = Math.floor(current).toLocaleString() + "+" + suffix;
-        }, stepTime);
-      }
+      }, { threshold: 0.5 });
+      if (counterElement) observer.observe(counterElement.closest('.results-section'));
     });
   </script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. 获取表单容器
       const signupSection = document.querySelector('.simple-signup-section');
       const signupContainer = document.querySelector('.simple-signup-container');
-
       if (!signupSection || !signupContainer) return;
-
-      // 2. 创建观察器
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // 当区域进入视口
           if (entry.isIntersecting) {
-            
-            // 3. 添加类名，触发动画
             signupContainer.classList.add('animate-form');
-
-            // 4. 动画只播放一次，停止观察
             observer.unobserve(signupSection);
           }
         });
-      }, { 
-        threshold: 0.2, // 当区域出现 20% 时触发
-        rootMargin: "0px 0px -50px 0px" // 稍微提前一点
-      });
-
-      // 5. 开始观察
+      }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
       observer.observe(signupSection);
     });
   </script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const featuresSection = document.querySelector('.features-section');
-      
-      // 获取所有参与动画的元素
-      const animatedElements = document.querySelectorAll(
-        '.section-header h1.section-title, .section-header p.section-subtitle, .feature-card'
-      );
-
+      const animatedElements = document.querySelectorAll('.section-header h1.section-title, .section-header p.section-subtitle, .feature-card');
       if (!featuresSection) return;
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            
-            // 1. 添加类名，触发动画
             featuresSection.classList.add('animate-cards');
-
-            // 2. 【终极清理】监听每个元素的动画结束事件
             animatedElements.forEach(el => {
               el.addEventListener('animationend', () => {
-                
-                // A. 先强制设置最终可见状态 (防止闪烁)
                 el.style.opacity = '1';
                 el.style.transform = 'translate3d(0, 0, 0)';
-
-                // B. 【关键】稍微延迟一点点 (10ms)，确保浏览器渲染了最终帧
                 setTimeout(() => {
-                  // C. 彻底移除动画属性
-                  el.style.animation = ''; 
+                  el.style.animation = '';
                   el.style.animationName = '';
                   el.style.animationDuration = '';
-                  
-                  // D. 【核心】显式清除 transform 和 opacity 的内联样式！
-                  // 这样 CSS 中的 :hover 规则才能毫无阻碍地生效
-                  el.style.transform = ''; 
+                  el.style.transform = '';
                   el.style.opacity = '';
-                  el.style.willChange = ''; // 清理性能优化标记
-                  
+                  el.style.willChange = '';
                 }, 10);
-                
               }, { once: true });
             });
-
-            // 3. 停止观察
             observer.unobserve(featuresSection);
           }
         });
-      }, { 
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-      });
-
+      }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
       observer.observe(featuresSection);
     });
+  </script>
+
+  <!-- EmailJS 集成（使用您的配置） -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // 初始化 EmailJS（使用您的 Public Key）
+    (function() {
+      emailjs.init('xi5Aq6ZgM7Ze_ezF-');
+    })();
+
+    // 模态框交互（复用之前的逻辑，但确保在 EmailJS 初始化后绑定表单）
+    const modal = document.getElementById('contactModal');
+    const contactBtn = document.getElementById('contactUsBtn');
+    const closeBtn = document.querySelector('.close-btn');
+
+    if (contactBtn) {
+      contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // 表单提交发送邮件
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessage').value;
+
+        const templateParams = {
+          name: name,
+          email: email,
+          message: message
+        };
+
+        try {
+          const response = await emailjs.send(
+            'service_3zih9t7',    // 您的 Service ID
+            'template_gvfzpn',    // 您的 Template ID
+            templateParams
+          );
+          alert('Message sent successfully!');
+          modal.style.display = 'none';
+          contactForm.reset();
+        } catch (error) {
+          console.error('EmailJS Error:', error);
+          alert('Failed to send message. Please try again later.');
+        }
+      });
+    }
   </script>
 </body>
 </html>
